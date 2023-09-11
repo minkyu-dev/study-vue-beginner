@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <!-- <app-header v-on:하위 컴포넌트에서 발생한 이벤트 이름 = "상위 컴포넌트의 메서드 이름"></app-header> -->
+        <app-header v-on:eventheader="logHeader"></app-header>
+        <app-contents v-on:eventcontents="logContents"></app-contents>
+        <app-footer v-on:eventfooter="logFooter"></app-footer>
+        <p>{{num}}</p>
+    </div>
+    
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script>
+        let appHeader = {
+            template: '<button v-on:click="passHeader">click header</button>',
+            methods:{
+                passHeader:function(){
+                    this.$emit('eventheader');
+                }
+            }
+        }
+
+        let appContents = {
+            template: '<button v-on:click="passContents">click contents</button>',
+            methods:{
+                passContents:function(){
+                    this.$emit('eventcontents');
+                }
+            }
+        }
+
+        let appFooter = {
+            template: '<button v-on:click="passFooter">click footer</button>',
+            methods:{
+                passFooter:function() {
+                    this.$emit('eventfooter');
+                }
+            }
+        }        
+
+        let vm = new Vue({
+            el:'#app',
+            components:{
+                'app-header': appHeader,
+                'app-contents': appContents,
+                'app-footer': appFooter
+            },
+            data: {
+                num:10
+            },
+            methods:{
+                logHeader:function() {
+                    console.log('header text');
+                },
+                logContents:function() {
+                    console.log('contents text');
+                    this.num++;
+                },
+                logFooter:function() {
+                    console.log('footer text');
+                    this.num--;
+                }
+            }
+        });
+    </script>
+</body>
+</html>

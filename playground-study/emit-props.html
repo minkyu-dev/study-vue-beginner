@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <app-component1 v-bind:propsdata="message"></app-component1>
+        <app-component2 v-on:eventinc="increaseNum"></app-component2>
+        <p>{{num}}</p>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script>
+        let appComponent1 = {
+            template:'<div>{{propsdata}}</div>',
+            props:['propsdata']
+        }
+
+        let appComponent2 = {
+            template:'<button v-on:click="passEvent">button</button>',
+            methods:{
+                passEvent:function(){
+                    this.$emit('eventinc');
+                }
+            }
+        }
+
+        let vm = new Vue({
+            el:'#app',
+            components:{
+                'app-component1':appComponent1,
+                'app-component2':appComponent2
+            },
+            data:{
+                message:'hi',
+                num:10
+            },
+            methods:{
+                increaseNum:function(){
+                    this.num++;
+                }
+            }
+        });
+    </script>
+</body>
+</html>

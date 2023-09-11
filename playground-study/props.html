@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <!-- <app-header v-bind:props attribute name = "상위 컴포넌트의 데이터 속성 이름"></app-header> -->
+        <app-header v-bind:propsheader = "message"></app-header>
+        <app-contents v-bind:propscontents = "num"></app-contents>
+        <app-footer v-bind:propsfooter = "corp"></app-footer>
+    </div>
+    
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script>
+        let appHeader = {
+            template:'<h1> {{propsheader}} </h1>',
+            props:['propsheader']
+        };
+
+        let appContents = {
+            template:'<div> {{propscontents}} </div>',
+            props:['propscontents']
+        };
+
+        let appFooter = {
+            template:'<div> {{propsfooter}} </div>',
+            props:['propsfooter']
+        }
+
+        let vm = new Vue({
+            el:'#app',
+            components:{
+                'app-header': appHeader,
+                'app-contents': appContents,
+                'app-footer': appFooter
+            },
+            data:{
+                message:'hi',
+                num:10,
+                corp:'park'
+            }
+        });
+    </script>
+</body>
+</html>
